@@ -23,14 +23,11 @@ export const newOrder = async (bgnAmount, bchAddress, email) => {
     });
     return { order: response.data };
   } catch (err) {
-    let errorMessage;
-    if (err.response && err.response.status === 503) {
-      errorMessage =
-        "Insuffiecient BCH reserves in the service to fulfill the order. Please decrease the amount or try again later";
-    } else {
-      errorMessage = "Unexpected error. Please contanct system administrator.";
-    }
-    return { errorMessage };
+    return errorMessageFromErrorForStatus(
+      err,
+      503,
+      "Insuffiecient BCH reserves in the service to fulfill the order. Please decrease the amount or try again later"
+    );
   }
 };
 
@@ -40,14 +37,11 @@ export const verifyPhone = async (orderId, phone) => {
       phone,
     });
   } catch (err) {
-    let errorMessage;
-    if (err.response && err.response.status === 400) {
-      errorMessage =
-        "Phone number is not formed correctly. Please follow the example: +359888123456";
-    } else {
-      errorMessage = "Unexpected error. Please contanct system administrator.";
-    }
-    return { errorMessage };
+    return errorMessageFromErrorForStatus(
+      err,
+      400,
+      "Phone number is not formed correctly. Please follow the example: +359888123456"
+    );
   }
 };
 
@@ -59,13 +53,11 @@ export const verifyPhoneCode = async (orderId, phone, secretCode) => {
     });
     return { order: response.data };
   } catch (err) {
-    let errorMessage;
-    if (err.response && err.response.status === 403) {
-      errorMessage = "Validation code is invalid. Please try again.";
-    } else {
-      errorMessage = "Unexpected error. Please contanct system administrator.";
-    }
-    return { errorMessage };
+    return errorMessageFromErrorForStatus(
+      err,
+      403,
+      "Validation code is invalid. Please try again."
+    );
   }
 };
 
@@ -82,12 +74,24 @@ export const verifyPhoto = async (orderId, photo, photoUrl) => {
     );
     return { order: response.data };
   } catch (err) {
-    let errorMessage;
-    if (err.response && err.response.status === 400) {
-      errorMessage = "Photo is of wrong format. Please try again.";
-    } else {
-      errorMessage = "Unexpected error. Please contanct system administrator.";
-    }
-    return { errorMessage };
+    return errorMessageFromErrorForStatus(
+      err,
+      400,
+      "Photo is of wrong format. Please try again."
+    );
   }
+};
+
+const errorMessageFromErrorForStatus = (
+  err,
+  statusCode,
+  customErrorMessage
+) => {
+  let errorMessage;
+  if (err.response && err.response.status === statusCode) {
+    errorMessage = customErrorMessage;
+  } else {
+    errorMessage = "Unexpected error. Please contactsystem administrator.";
+  }
+  return { errorMessage };
 };

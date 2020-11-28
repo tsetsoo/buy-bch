@@ -2,9 +2,9 @@ import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
 
 import "./payment-pending.styles.scss";
-import "../new-order/new-order.styles.scss";
+import "../form.styles.scss";
 
-function PaymentPending({ paymentUrl }) {
+const PaymentPending = ({ paymentUrl }) => {
   const newOrder = () => {
     localStorage.removeItem("orderId");
     window.location.reload();
@@ -21,6 +21,6 @@ function PaymentPending({ paymentUrl }) {
       </div>
     </div>
   );
-}
+};
 
 export default PaymentPending;

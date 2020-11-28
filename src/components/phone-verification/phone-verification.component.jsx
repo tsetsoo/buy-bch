@@ -3,7 +3,7 @@ import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import { verifyPhone, verifyPhoneCode } from "../../api/buy-bch.api";
 
-import "../new-order/new-order.styles.scss";
+import "../form.styles.scss";
 
 function PhoneVerification({ orderId, setOrder }) {
   const [phone, setPhone] = useState("");

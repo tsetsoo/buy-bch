@@ -4,8 +4,7 @@ import FormInput from "../form-input/form-input.component";
 import { newOrder, getRate } from "../../api/buy-bch.api";
 import Spinner from "../spinner/spinner.component";
 
-import "./new-order.styles.scss";
-import "../form-input/form-input.styles.scss";
+import "../form.styles.scss";
 
 function NewOrder({ setOrder }) {
   const [bgn, setBgn] = useState("");
