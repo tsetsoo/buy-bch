@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getOrder } from "./api/buy-bch.api";
 
-import "./App.css";
+import "./App.scss";
 import NewOrder from "./components/new-order/new-order.component";
 import PaymentPending from "./components/payment-pending/payment-pending.component";
 import PhoneVerification from "./components/phone-verification/phone-verification.component";

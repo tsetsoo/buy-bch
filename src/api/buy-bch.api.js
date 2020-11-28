@@ -91,7 +91,7 @@ const errorMessageFromErrorForStatus = (
   if (err.response && err.response.status === statusCode) {
     errorMessage = customErrorMessage;
   } else {
-    errorMessage = "Unexpected error. Please contactsystem administrator.";
+    errorMessage = "Unexpected error. Please contact system administrator.";
   }
   return { errorMessage };
 };
