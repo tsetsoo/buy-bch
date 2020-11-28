@@ -2,6 +2,7 @@ import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
 
 import "./payment-pending.styles.scss";
+import "../new-order/new-order.styles.scss";
 
 function PaymentPending({ paymentUrl }) {
   const newOrder = () => {
@@ -10,7 +11,7 @@ function PaymentPending({ paymentUrl }) {
   };
 
   return (
-    <div className="thankYouWrapper">
+    <div className="new-order">
       <p>Thank you for your order</p>
       <div className="buttons">
         <CustomButton onClick={() => window.open(paymentUrl, "_blank")}>

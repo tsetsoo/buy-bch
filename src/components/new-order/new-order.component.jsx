@@ -1,76 +1,117 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
-import { newOrder } from "../../api/buy-bch.api";
+import { newOrder, getRate } from "../../api/buy-bch.api";
+import Spinner from "../spinner/spinner.component";
 
 import "./new-order.styles.scss";
+import "../form-input/form-input.styles.scss";
 
-class NewOrder extends React.Component {
-  constructor(props) {
-    super(props);
+function NewOrder({ setOrder }) {
+  const [bgn, setBgn] = useState("");
+  const [email, setEmail] = useState("");
+  const [bchAddress, setBchAddress] = useState("");
+  const [bch, setBch] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    this.state = {
-      email: "",
-      bchAddress: "",
-      bgn: "",
-    };
-  }
+  const didMount = useRef(false);
 
-  handleSubmit = async (event) => {
+  useEffect(() => {
+    if (didMount.current) {
+      const timeOutId = setTimeout(async () => {
+        const bchAmount = await getRate(bgn);
+        setBch(bchAmount);
+      }, 1000);
+      return () => clearTimeout(timeOutId);
+    } else {
+      didMount.current = true;
+    }
+  }, [bgn]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const order = await newOrder(
-      this.state.bgn,
-      this.state.bchAddress,
-      this.state.email
-    );
-    console.log(order);
-    localStorage.setItem("orderId", order["id"]);
-    this.props.setOrder(order);
+    setLoading(true);
+    const response = await newOrder(bgn, bchAddress, email);
+    setLoading(false);
+    if (response.order) {
+      localStorage.setItem("orderId", response.order.id);
+      setOrder(response.order);
+    } else if (response.errorMessage) {
+      setErrorMessage(response.errorMessage);
+    }
   };
 
-  handleChange = (event) => {
-    const { value, name } = event.target;
-
-    this.setState({ [name]: value });
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
   };
 
-  render() {
-    return (
-      <div className="new-order">
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            name="email"
-            type="email"
-            handleChange={this.handleChange}
-            value={this.state.email}
-            label="email"
-            required
-          />
-          <FormInput
-            name="bchAddress"
-            type="bchAddress"
-            handleChange={this.handleChange}
-            value={this.state.bchAddress}
-            label="bchAddress"
-            required
-          />
-          <FormInput
-            name="bgn"
-            type="number"
-            step="0.001"
-            handleChange={this.handleChange}
-            value={this.state.bgn}
-            label="BGN"
-            required
-          />
+  const handleChangeBchAddress = (event) => {
+    setBchAddress(event.target.value);
+  };
 
-          <div className="buttons">
-            <CustomButton type="submit"> Buy BCH </CustomButton>
-          </div>
-        </form>
-      </div>
-    );
+  const handleChangeBgn = (event) => {
+    setBgn(event.target.value);
+  };
+
+  if (loading) {
+    return <Spinner />;
   }
+
+  return (
+    <div className="new-order">
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          name="email"
+          type="email"
+          handleChange={handleChangeEmail}
+          value={email}
+          label="Your Email"
+          required
+        />
+        <FormInput
+          name="bchAddress"
+          type="bchAddress"
+          handleChange={handleChangeBchAddress}
+          value={bchAddress}
+          label="Your Bitcoin Cash Wallet Address"
+          required
+        />
+        <FormInput
+          name="bgn"
+          type="number"
+          step="0.001"
+          handleChange={handleChangeBgn}
+          value={bgn}
+          label="Amount of BGN you want to spend"
+          required
+          max={process.env.REACT_APP_MAX_BGN_AMOUNT}
+          min={process.env.REACT_APP_MIN_BGN_AMOUNT}
+        />
+        <FormInput
+          name="bch"
+          type="text"
+          value={bch ? bch.toString() : ""}
+          label="Estimated amount of BCH you will receive"
+          readOnly
+        />
+        <div className="group">
+          <input type="checkbox" required name="termsConditions" />
+          <label>
+            I Accept{" "}
+            <a href={process.env.REACT_APP_TERMS_AND_CONDITIONS_URL}>
+              Terms and Conditions
+            </a>
+          </label>
+        </div>
+
+        <div className="buttons">
+          <CustomButton type="submit"> Buy BCH </CustomButton>
+        </div>
+      </form>
+      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+    </div>
+  );
 }
 
 export default NewOrder;

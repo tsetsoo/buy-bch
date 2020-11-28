@@ -2,6 +2,8 @@
   width: 380px;
   display: flex;
   flex-direction: column;
+  margin: auto;
+  padding: 10px;
 
   .title {
     margin: 10px 0;
@@ -11,4 +13,13 @@
     display: flex;
     justify-content: space-between;
   }
+
+  @media screen and (max-width: 800px) {
+    width: 90vw;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: rgb(236, 65, 21);
 }

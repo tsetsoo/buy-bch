@@ -9,15 +9,25 @@ function PhoneVerification({ orderId, setOrder }) {
   const [phone, setPhone] = useState("");
   const [validationCode, setValidationCode] = useState("");
   const [codeSent, setCodeSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage("");
     if (codeSent) {
-      const order = await verifyPhoneCode(orderId, phone, validationCode);
-      setOrder(order);
+      const response = await verifyPhoneCode(orderId, phone, validationCode);
+      if (response.order) {
+        setOrder(response.order);
+      } else if (response.errorMessage) {
+        setErrorMessage(response.errorMessage);
+      }
     } else {
-      verifyPhone(orderId, phone);
-      setCodeSent(!codeSent);
+      const response = await verifyPhone(orderId, phone);
+      if (response) {
+        setErrorMessage(response.errorMessage);
+      } else {
+        setCodeSent(!codeSent);
+      }
     }
   };
 
@@ -37,7 +47,7 @@ function PhoneVerification({ orderId, setOrder }) {
           type="text"
           handleChange={handlePhoneChange}
           value={phone}
-          label="phoneNumber"
+          label="Your Phone Number (e.g. +359888123456)"
           required
         />
         {codeSent ? (
@@ -46,7 +56,7 @@ function PhoneVerification({ orderId, setOrder }) {
             type="text"
             handleChange={handleValidationCodeChange}
             value={validationCode}
-            label="validationCode"
+            label="SMS Code"
             required
           />
         ) : null}
@@ -54,6 +64,7 @@ function PhoneVerification({ orderId, setOrder }) {
           <CustomButton type="submit"> Submit </CustomButton>
         </div>
       </form>
+      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </div>
   );
 }
