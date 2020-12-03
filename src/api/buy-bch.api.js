@@ -1,13 +1,17 @@
 import axios from "axios";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const getRate = async (bgnAmount) => {
-  const response = await axios.get("/rate/bchbgn?amount_bgn=" + bgnAmount);
+  const response = await axios.get(
+    `${backendUrl}/rate/bchbgn?amount_bgn=${bgnAmount}`
+  );
   return response.data["amount_bch"];
 };
 
 export const getOrder = async (orderId) => {
   try {
-    const response = await axios.get("/order/" + orderId);
+    const response = await axios.get(`${backendUrl}/order/${orderId}`);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -16,7 +20,7 @@ export const getOrder = async (orderId) => {
 
 export const newOrder = async (bgnAmount, bchAddress, email) => {
   try {
-    const response = await axios.post("/order", {
+    const response = await axios.post(`${backendUrl}/order`, {
       bgn_amount: bgnAmount,
       bch_addr: bchAddress,
       email,
@@ -33,7 +37,7 @@ export const newOrder = async (bgnAmount, bchAddress, email) => {
 
 export const verifyPhone = async (orderId, phone) => {
   try {
-    await axios.post("/order/" + orderId + "/id/phone", {
+    await axios.post(`${backendUrl}/order/${orderId}/id/phone`, {
       phone,
     });
   } catch (err) {
@@ -47,10 +51,13 @@ export const verifyPhone = async (orderId, phone) => {
 
 export const verifyPhoneCode = async (orderId, phone, secretCode) => {
   try {
-    const response = await axios.post("/order/" + orderId + "/id/phone", {
-      phone,
-      secret_code: secretCode,
-    });
+    const response = await axios.post(
+      `${backendUrl}/order/${orderId}/id/phone`,
+      {
+        phone,
+        secret_code: secretCode,
+      }
+    );
     return { order: response.data };
   } catch (err) {
     return errorMessageFromErrorForStatus(
@@ -64,7 +71,7 @@ export const verifyPhoneCode = async (orderId, phone, secretCode) => {
 export const verifyPhoto = async (orderId, photo, photoUrl) => {
   try {
     const response = await axios.post(
-      "/order/" + orderId + "/id/" + photoUrl,
+      backendUrl + "/order/" + orderId + "/id/" + photoUrl,
       photo,
       {
         headers: {
