@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/buy-bch/static/css/main.da5debe0.chunk.css",
-    "main.js": "/buy-bch/static/js/main.582e9380.chunk.js",
-    "main.js.map": "/buy-bch/static/js/main.582e9380.chunk.js.map",
+    "main.js": "/buy-bch/static/js/main.e57cfff0.chunk.js",
+    "main.js.map": "/buy-bch/static/js/main.e57cfff0.chunk.js.map",
     "runtime-main.js": "/buy-bch/static/js/runtime-main.80223ef4.js",
     "runtime-main.js.map": "/buy-bch/static/js/runtime-main.80223ef4.js.map",
     "static/js/2.d8c71ad0.chunk.js": "/buy-bch/static/js/2.d8c71ad0.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.80223ef4.js",
     "static/js/2.d8c71ad0.chunk.js",
     "static/css/main.da5debe0.chunk.css",
-    "static/js/main.582e9380.chunk.js"
+    "static/js/main.e57cfff0.chunk.js"
   ]
 }
