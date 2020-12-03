@@ -1,4 +1,23 @@
-Buy BCH for BGN Fron-end
+Buy BCH for BGN Frontend Application
+
+## Prerequisets for local development
+
+1. yarn or npm
+
+## Build a new version
+
+You can configure runtime variables defined in .env:
+
+    REACT_APP_TERMS_AND_CONDITIONS_URL -> Terms and conditions URL
+    REACT_APP_MAX_BGN_AMOUNT -> Maximum amount of BGN a customer can spend for BCH
+    REACT_APP_MIN_BGN_AMOUNT -> Minumum amount of BGN a customer can spend for BCH
+    REACT_APP_BACKEND_URL -> URL of backend buy-bch api
+
+In order to build a new version of the app you should:
+
+1. npm install or yarn
+2. npm run build or yarn build
+3. Compiled static assets are in /build folder and can be served by any web server(node, apache, nginx)
 
 ### Making a Progressive Web App
 
@@ -11,3 +30,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+A new version of the application can be deployed to Github Pages via:
+
+```shell
+yarn deploy
+```
