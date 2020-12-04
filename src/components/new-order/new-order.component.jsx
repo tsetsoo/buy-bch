@@ -3,6 +3,7 @@ import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import { newOrder, getRate } from "../../api/buy-bch.api";
 import Spinner from "../spinner/spinner.component";
+import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
 
@@ -15,6 +16,8 @@ function NewOrder({ setOrder }) {
   const [loading, setLoading] = useState(false);
 
   const didMount = useRef(false);
+
+  const intl = useIntl();
 
   useEffect(() => {
     if (didMount.current) {
@@ -36,8 +39,8 @@ function NewOrder({ setOrder }) {
     if (response.order) {
       localStorage.setItem("orderId", response.order.id);
       setOrder(response.order);
-    } else if (response.errorMessage) {
-      setErrorMessage(response.errorMessage);
+    } else if (response.errorId) {
+      setErrorMessage(intl.formatMessage({ id: response.errorId }));
     }
   };
 
@@ -65,7 +68,7 @@ function NewOrder({ setOrder }) {
           type="email"
           handleChange={handleChangeEmail}
           value={email}
-          label="Your Email"
+          label={intl.formatMessage({ id: "order.email" })}
           required
         />
         <FormInput
@@ -73,7 +76,7 @@ function NewOrder({ setOrder }) {
           type="bchAddress"
           handleChange={handleChangeBchAddress}
           value={bchAddress}
-          label="Your Bitcoin Cash Wallet Address"
+          label={intl.formatMessage({ id: "order.bchAddress" })}
           required
         />
         <FormInput
@@ -82,7 +85,7 @@ function NewOrder({ setOrder }) {
           step="0.001"
           handleChange={handleChangeBgn}
           value={bgn}
-          label="Amount of BGN you want to spend"
+          label={intl.formatMessage({ id: "order.bgnAmount" })}
           required
           max={process.env.REACT_APP_MAX_BGN_AMOUNT}
           min={process.env.REACT_APP_MIN_BGN_AMOUNT}
@@ -91,21 +94,31 @@ function NewOrder({ setOrder }) {
           name="bch"
           type="text"
           value={bch ? bch.toString() : ""}
-          label="Estimated amount of BCH you will receive"
+          label={intl.formatMessage({ id: "order.bchAmount" })}
           readOnly
         />
         <div className="group">
           <input type="checkbox" required name="termsConditions" />
           <label>
-            I Accept{" "}
-            <a href={process.env.REACT_APP_TERMS_AND_CONDITIONS_URL}>
-              Terms and Conditions
-            </a>
+            {intl.formatMessage(
+              {
+                id: "order.termAndConditions",
+              },
+              {
+                a: (url) => (
+                  <a href={process.env.REACT_APP_TERMS_AND_CONDITIONS_URL}>
+                    {url}
+                  </a>
+                ),
+              }
+            )}
           </label>
         </div>
 
         <div className="buttons">
-          <CustomButton type="submit"> Buy BCH </CustomButton>
+          <CustomButton type="submit">
+            {intl.formatMessage({ id: "order.buyButton" })}
+          </CustomButton>
         </div>
       </form>
       {errorMessage ? <p className="error-message">{errorMessage}</p> : null}

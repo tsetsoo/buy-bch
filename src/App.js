@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getOrder } from "./api/buy-bch.api";
 
 import "./App.scss";
+import Header from "./components/header/header.component";
 import NewOrder from "./components/new-order/new-order.component";
 import PaymentPending from "./components/payment-pending/payment-pending.component";
 import PhoneVerification from "./components/phone-verification/phone-verification.component";
@@ -50,7 +51,12 @@ function App() {
     return <NewOrder setOrder={setOrder} />;
   };
 
-  return <div className="App">{renderSwitch()}</div>;
+  return (
+    <div className="App">
+      <Header />
+      {renderSwitch()}
+    </div>
+  );
 }
 
 export default App;

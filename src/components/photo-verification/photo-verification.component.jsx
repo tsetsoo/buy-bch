@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import { verifyPhoto } from "../../api/buy-bch.api";
+import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
 import "./photo-verification.styles.scss";
@@ -16,6 +17,8 @@ function PhotoVerification({
   const [key, setKey] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const intl = useIntl();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
@@ -24,8 +27,8 @@ function PhotoVerification({
       setPhoto(null);
       setKey(key === 0 ? 1 + key : key - 1);
       setOrder(response.order);
-    } else if (response.errorMessage) {
-      setErrorMessage(response.errorMessage);
+    } else if (response.errorId) {
+      setErrorMessage(intl.formatMessage({ id: response.errorId }));
     }
   };
 
@@ -36,19 +39,19 @@ function PhotoVerification({
     }
   };
 
-  const photoName = () => {
+  const photoMessageId = () => {
     if (photoSuffix === "id_photo") {
-      return "photo of your ID";
+      return "photo.typeId";
     } else if (photoSuffix === "face_photo") {
-      return "selfie";
+      return "photo.typeFace";
     } else if (photoSuffix === "declaration_form") {
-      return "a photo copy of your declaration form";
+      return "photo.typeDeclaration";
     }
   };
 
   return (
     <div className="new-order">
-      <p>Please upload a {photoName() + " in PNG or JPEG format"}</p>
+      <p>{intl.formatMessage({ id: photoMessageId() })}</p>
       <form onSubmit={handleSubmit}>
         <FormInput
           name="photo"
@@ -62,12 +65,20 @@ function PhotoVerification({
         ) : null}
         {declarationFormUrl ? (
           <p>
-            Please download declaration form from{" "}
-            <a href={declarationFormUrl}>here</a>
+            {intl.formatMessage(
+              {
+                id: "photo.declarationUrl",
+              },
+              {
+                a: (url) => <a href={declarationFormUrl}>{url}</a>,
+              }
+            )}
           </p>
         ) : null}
         <div className="buttons">
-          <CustomButton type="submit"> UPLOAD </CustomButton>
+          <CustomButton type="submit">
+            {intl.formatMessage({ id: "photo.upload" })}
+          </CustomButton>
         </div>
       </form>
       {errorMessage ? <p className="error-message">{errorMessage}</p> : null}

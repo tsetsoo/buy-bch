@@ -3,10 +3,14 @@ import axios from "axios";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const getRate = async (bgnAmount) => {
-  const response = await axios.get(
-    `${backendUrl}/rate/bchbgn?amount_bgn=${bgnAmount}`
-  );
-  return response.data["amount_bch"];
+  try {
+    const response = await axios.get(
+      `${backendUrl}/rate/bchbgn?amount_bgn=${bgnAmount}`
+    );
+    return response.data["amount_bch"];
+  } catch (err) {
+    return { errorId: "bchapi.error.general" };
+  }
 };
 
 export const getOrder = async (orderId) => {
@@ -14,7 +18,7 @@ export const getOrder = async (orderId) => {
     const response = await axios.get(`${backendUrl}/order/${orderId}`);
     return response.data;
   } catch (err) {
-    console.log(err);
+    return { errorId: "bchapi.error.general" };
   }
 };
 
@@ -27,11 +31,7 @@ export const newOrder = async (bgnAmount, bchAddress, email) => {
     });
     return { order: response.data };
   } catch (err) {
-    return errorMessageFromErrorForStatus(
-      err,
-      503,
-      "Insuffiecient BCH reserves in the service to fulfill the order. Please decrease the amount or try again later"
-    );
+    return errorIdFromErrorForStatus(err, 503, "bchapi.error.notEnoughBch");
   }
 };
 
@@ -41,11 +41,7 @@ export const verifyPhone = async (orderId, phone) => {
       phone,
     });
   } catch (err) {
-    return errorMessageFromErrorForStatus(
-      err,
-      400,
-      "Phone number is not formed correctly. Please follow the example: +359888123456"
-    );
+    return errorIdFromErrorForStatus(err, 400, "bchapi.error.phoneNumber");
   }
 };
 
@@ -60,18 +56,14 @@ export const verifyPhoneCode = async (orderId, phone, secretCode) => {
     );
     return { order: response.data };
   } catch (err) {
-    return errorMessageFromErrorForStatus(
-      err,
-      403,
-      "Validation code is invalid. Please try again."
-    );
+    return errorIdFromErrorForStatus(err, 403, "bchapi.error.validationCode");
   }
 };
 
 export const verifyPhoto = async (orderId, photo, photoUrl) => {
   try {
     const response = await axios.post(
-      backendUrl + "/order/" + orderId + "/id/" + photoUrl,
+      `${backendUrl}/order/${orderId}/id/${photoUrl}`,
       photo,
       {
         headers: {
@@ -81,24 +73,16 @@ export const verifyPhoto = async (orderId, photo, photoUrl) => {
     );
     return { order: response.data };
   } catch (err) {
-    return errorMessageFromErrorForStatus(
-      err,
-      400,
-      "Photo is of wrong format. Please try again."
-    );
+    return errorIdFromErrorForStatus(err, 400, "bchapi.error.photoFormat");
   }
 };
 
-const errorMessageFromErrorForStatus = (
-  err,
-  statusCode,
-  customErrorMessage
-) => {
-  let errorMessage;
+const errorIdFromErrorForStatus = (err, statusCode, customErrorId) => {
+  let errorId;
   if (err.response && err.response.status === statusCode) {
-    errorMessage = customErrorMessage;
+    errorId = customErrorId;
   } else {
-    errorMessage = "Unexpected error. Please contact system administrator.";
+    errorId = "bchapi.error.general";
   }
-  return { errorMessage };
+  return { errorId };
 };

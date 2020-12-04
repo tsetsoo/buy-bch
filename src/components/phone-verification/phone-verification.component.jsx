@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import { verifyPhone, verifyPhoneCode } from "../../api/buy-bch.api";
+import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
 
@@ -11,6 +12,8 @@ function PhoneVerification({ orderId, setOrder }) {
   const [codeSent, setCodeSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const intl = useIntl();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
@@ -18,13 +21,13 @@ function PhoneVerification({ orderId, setOrder }) {
       const response = await verifyPhoneCode(orderId, phone, validationCode);
       if (response.order) {
         setOrder(response.order);
-      } else if (response.errorMessage) {
-        setErrorMessage(response.errorMessage);
+      } else if (response.errorId) {
+        setErrorMessage(intl.formatMessage({ id: response.errorId }));
       }
     } else {
       const response = await verifyPhone(orderId, phone);
       if (response) {
-        setErrorMessage(response.errorMessage);
+        setErrorMessage(intl.formatMessage({ id: response.errorId }));
       } else {
         setCodeSent(!codeSent);
       }
@@ -47,7 +50,7 @@ function PhoneVerification({ orderId, setOrder }) {
           type="text"
           handleChange={handlePhoneChange}
           value={phone}
-          label="Your Phone Number (e.g. +359888123456)"
+          label={intl.formatMessage({ id: "phone.number" })}
           required
         />
         {codeSent ? (
@@ -56,12 +59,14 @@ function PhoneVerification({ orderId, setOrder }) {
             type="text"
             handleChange={handleValidationCodeChange}
             value={validationCode}
-            label="SMS Code"
+            label={intl.formatMessage({ id: "phone.smsCode" })}
             required
           />
         ) : null}
         <div className="buttons">
-          <CustomButton type="submit"> Submit </CustomButton>
+          <CustomButton type="submit">
+            {intl.formatMessage({ id: "phone.submit" })}
+          </CustomButton>
         </div>
       </form>
       {errorMessage ? <p className="error-message">{errorMessage}</p> : null}

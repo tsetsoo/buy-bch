@@ -1,11 +1,14 @@
 import React, { useReducer } from "react";
 import CustomButton from "../custom-button/custom-button.component";
+import { useIntl } from "react-intl";
 
 import "./payment-pending.styles.scss";
 import "../form.styles.scss";
 
 const PaymentPending = ({ paymentUrl }) => {
   const [, forceUpdate] = useReducer((x) => (x === 0 ? x + 1 : x - 1), 0);
+
+  const intl = useIntl();
 
   const newOrder = () => {
     localStorage.clear();
@@ -20,11 +23,15 @@ const PaymentPending = ({ paymentUrl }) => {
 
   return (
     <div className="new-order">
-      <p>Thank you for your order</p>
+      <p>{intl.formatMessage({ id: "payment.thankYou" })}</p>
       <div className="buttons">
-        <CustomButton onClick={payHere}>Pay here</CustomButton>
+        <CustomButton onClick={payHere}>
+          {intl.formatMessage({ id: "payment.payHere" })}
+        </CustomButton>
         {localStorage.getItem("new-order-button-visible") ? (
-          <CustomButton onClick={newOrder}>New Order</CustomButton>
+          <CustomButton onClick={newOrder}>
+            {intl.formatMessage({ id: "payment.newOrder" })}
+          </CustomButton>
         ) : null}
       </div>
     </div>

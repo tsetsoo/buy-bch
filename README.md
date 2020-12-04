@@ -2,9 +2,14 @@ Buy BCH for BGN Frontend Application
 
 ## Prerequisets for local development
 
-1. yarn or npm
+yarn or npm
 
-## Build a new version
+### Local Development
+
+1. npm install or yarn
+2. npm run start or yarn start
+
+### Build a new version
 
 You can configure runtime variables defined in .env:
 
@@ -19,14 +24,6 @@ In order to build a new version of the app you should:
 2. npm run build or yarn build
 3. Compiled static assets are in /build folder and can be served by any web server(node, apache, nginx)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
@@ -36,3 +33,11 @@ A new version of the application can be deployed to Github Pages via:
 ```shell
 yarn deploy
 ```
+
+## Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+## Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
