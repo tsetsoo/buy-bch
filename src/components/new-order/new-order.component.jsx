@@ -107,7 +107,7 @@ function NewOrder({ setOrder }) {
         <FormInput
           name="bgn"
           type="number"
-          step="0.001"
+          step={process.env.REACT_APP_BGN_STEP}
           handleChange={handleChangeBgn}
           value={bgn}
           label={intl.formatMessage({ id: "order.bgnAmount" })}

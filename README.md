@@ -17,6 +17,7 @@ You can configure runtime variables defined in .env:
     REACT_APP_MAX_BGN_AMOUNT -> Maximum amount of BGN a customer can spend for BCH
     REACT_APP_MIN_BGN_AMOUNT -> Minumum amount of BGN a customer can spend for BCH
     REACT_APP_BACKEND_URL -> URL of backend buy-bch api
+    REACT_APP_BGN_STEP -> BGN amount step
 
 In order to build a new version of the app you should:
 
