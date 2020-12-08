@@ -8,7 +8,7 @@
   "order.scanQr": "Scan QR Code",
   "qrScanner.confirmationMessage": "Is this your BCH address?",
   "qrScanner.submit": "yes",
-  "qrScanner.scanAgain": "no, scan again",
+  "qrScanner.scanAgain": "scan again",
   "phone.number": "Your Phone Number (e.g. +359888123456)",
   "phone.smsCode": "SMS Code",
   "phone.submit": "submit",
