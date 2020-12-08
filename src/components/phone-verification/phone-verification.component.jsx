@@ -43,7 +43,7 @@ function PhoneVerification({ orderId, setOrder }) {
   };
 
   return (
-    <div className="new-order">
+    <div className="form-container">
       <form onSubmit={handleSubmit}>
         <FormInput
           name="phoneNumber"

@@ -22,7 +22,7 @@ const PaymentPending = ({ paymentUrl }) => {
   };
 
   return (
-    <div className="new-order">
+    <div className="form-container">
       <p>{intl.formatMessage({ id: "payment.thankYou" })}</p>
       <div className="buttons">
         <CustomButton onClick={payHere}>

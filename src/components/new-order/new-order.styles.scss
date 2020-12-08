@@ -1,0 +1,19 @@
+.qr-button {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+  padding: 0 15px 0 15px;
+
+  height: 20px;
+  width: 30px;
+  font-size: 8px;
+  line-height: 20px;
+  background-color: grey;
+  min-width: 100px;
+  letter-spacing: normal;
+}
+
+.qr-button-container {
+  width: 100%;
+}

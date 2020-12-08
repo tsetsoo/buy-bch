@@ -50,7 +50,7 @@ function PhotoVerification({
   };
 
   return (
-    <div className="new-order">
+    <div className="form-container">
       <p>{intl.formatMessage({ id: photoMessageId() })}</p>
       <form onSubmit={handleSubmit}>
         <FormInput

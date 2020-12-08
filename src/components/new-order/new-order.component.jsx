@@ -1,16 +1,24 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
-import { newOrder, getRate } from "../../api/buy-bch.api";
 import Spinner from "../spinner/spinner.component";
+import QrScanner from "../qr-scanner/qr-scanner.component";
+
+import { newOrder, getRate } from "../../api/buy-bch.api";
+
 import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
+import "./new-order.styles.scss";
 
 function NewOrder({ setOrder }) {
   const [bgn, setBgn] = useState("");
   const [email, setEmail] = useState("");
-  const [bchAddress, setBchAddress] = useState("");
+  const [bchState, setBchState] = useState({
+    bchAddress: "",
+    showQr: false,
+  });
   const [bch, setBch] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +42,7 @@ function NewOrder({ setOrder }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const response = await newOrder(bgn, bchAddress, email);
+    const response = await newOrder(bgn, bchState.bchAddress, email);
     setLoading(false);
     if (response.order) {
       localStorage.setItem("orderId", response.order.id);
@@ -49,7 +57,7 @@ function NewOrder({ setOrder }) {
   };
 
   const handleChangeBchAddress = (event) => {
-    setBchAddress(event.target.value);
+    setBchState({ ...bchState, bchAddress: event.target.value });
   };
 
   const handleChangeBgn = (event) => {
@@ -60,8 +68,12 @@ function NewOrder({ setOrder }) {
     return <Spinner />;
   }
 
+  if (bchState.showQr) {
+    return <QrScanner setBchState={setBchState} />;
+  }
+
   return (
-    <div className="new-order">
+    <div className="form-container">
       <form onSubmit={handleSubmit}>
         <FormInput
           name="email"
@@ -75,9 +87,22 @@ function NewOrder({ setOrder }) {
           name="bchAddress"
           type="bchAddress"
           handleChange={handleChangeBchAddress}
-          value={bchAddress}
+          value={bchState.bchAddress}
           label={intl.formatMessage({ id: "order.bchAddress" })}
           required
+          children={
+            <div className="qr-button-container">
+              <button
+                className="custom-button qr-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setBchState({ ...bchState, showQr: true });
+                }}
+              >
+                {intl.formatMessage({ id: "order.scanQr" })}
+              </button>
+            </div>
+          }
         />
         <FormInput
           name="bgn"
