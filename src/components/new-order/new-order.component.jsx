@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
-import Spinner from "../spinner/spinner.component";
 import QrScanner from "../qr-scanner/qr-scanner.component";
+import FormContainer from "../form-container/form-container.component";
 
 import { newOrder, getRate } from "../../api/buy-bch.api";
 
@@ -12,7 +12,7 @@ import { useIntl } from "react-intl";
 import "../form.styles.scss";
 import "./new-order.styles.scss";
 
-function NewOrder({ setOrder }) {
+function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const [bgn, setBgn] = useState("");
   const [email, setEmail] = useState("");
   const [bchState, setBchState] = useState({
@@ -20,8 +20,6 @@ function NewOrder({ setOrder }) {
     showQr: false,
   });
   const [bch, setBch] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const didMount = useRef(false);
 
@@ -48,7 +46,7 @@ function NewOrder({ setOrder }) {
       localStorage.setItem("orderId", response.order.id);
       setOrder(response.order);
     } else if (response.errorId) {
-      setErrorMessage(intl.formatMessage({ id: response.errorId }));
+      setErrorMessage(response.errorId);
     }
   };
 
@@ -64,16 +62,12 @@ function NewOrder({ setOrder }) {
     setBgn(event.target.value);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   if (bchState.showQr) {
     return <QrScanner setBchState={setBchState} />;
   }
 
   return (
-    <div className="form-container">
+    <div>
       <form onSubmit={handleSubmit}>
         <FormInput
           name="email"
@@ -146,9 +140,8 @@ function NewOrder({ setOrder }) {
           </CustomButton>
         </div>
       </form>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </div>
   );
 }
 
-export default NewOrder;
+export default FormContainer(NewOrder);

@@ -8,10 +8,15 @@ import QrReader from "react-qr-reader";
 import "../form.styles.scss";
 
 function QrScanner({ setBchState }) {
-  const [bchAddress, setBchAddress] = useState(null);
+  const [bchAddress, setBchAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const intl = useIntl();
+
+  const setBchAddressAndReturn = (e) => {
+    e.preventDefault();
+    setBchState({ bchAddress: bchAddress ? bchAddress : "", showQr: false });
+  };
 
   return (
     <div className="form-container">
@@ -20,15 +25,11 @@ function QrScanner({ setBchState }) {
           <p>{intl.formatMessage({ id: "qrScanner.confirmationMessage" })}</p>
           <p>{bchAddress}</p>
           <div className="buttons">
-            <CustomButton
-              onClick={(e) => {
-                e.preventDefault();
-                setBchState({ bchAddress, showQr: false });
-              }}
-            >
+            <CustomButton color="green" onClick={setBchAddressAndReturn}>
               {intl.formatMessage({ id: "qrScanner.submit" })}
             </CustomButton>
             <CustomButton
+              color="red"
               onClick={(e) => {
                 e.preventDefault();
                 setBchAddress("");
@@ -39,11 +40,17 @@ function QrScanner({ setBchState }) {
           </div>
         </div>
       ) : (
-        <QrReader
-          delay={300}
-          onError={(error) => setErrorMessage(error)}
-          onScan={(data) => setBchAddress(data)}
-        />
+        <div>
+          <QrReader
+            delay={300}
+            onError={(error) => setErrorMessage(error)}
+            onScan={(data) => setBchAddress(data)}
+            style={{ margin: "10px 0px" }}
+          />
+          <CustomButton color="red" onClick={setBchAddressAndReturn}>
+            {intl.formatMessage({ id: "qrScanner.back" })}
+          </CustomButton>
+        </div>
       )}
       {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </div>

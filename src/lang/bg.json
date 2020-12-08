@@ -7,6 +7,7 @@
   "order.termAndConditions": "I Accept <a>Terms and Conditions</a>",
   "order.buyButton": "BUY BCH",
   "order.scanQr": "Scan QR Code",
+  "qrScanner.back": "Go Back",
   "qrScanner.confirmationMessage": "Is this your BCH address?",
   "qrScanner.submit": "yes",
   "qrScanner.scanAgain": "scan again",

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
+import FormContainer from "../form-container/form-container.component";
+
 import { verifyPhoto } from "../../api/buy-bch.api";
+
 import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
@@ -12,23 +16,26 @@ function PhotoVerification({
   setOrder,
   photoSuffix,
   declarationFormUrl,
+  setErrorMessage,
+  setLoading,
 }) {
   const [photo, setPhoto] = useState(null);
   const [key, setKey] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const intl = useIntl();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
+    setLoading(true);
     const response = await verifyPhoto(orderId, photo, photoSuffix);
+    setLoading(false);
     if (response.order) {
       setPhoto(null);
       setKey(key === 0 ? 1 + key : key - 1);
       setOrder(response.order);
     } else if (response.errorId) {
-      setErrorMessage(intl.formatMessage({ id: response.errorId }));
+      setErrorMessage(response.errorId);
     }
   };
 
@@ -50,7 +57,7 @@ function PhotoVerification({
   };
 
   return (
-    <div className="form-container">
+    <div>
       <p>{intl.formatMessage({ id: photoMessageId() })}</p>
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -81,9 +88,8 @@ function PhotoVerification({
           </CustomButton>
         </div>
       </form>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </div>
   );
 }
 
-export default PhotoVerification;
+export default FormContainer(PhotoVerification);

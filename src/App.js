@@ -17,7 +17,6 @@ function App() {
     if (orderId) {
       async function fetchOrder() {
         const retrievedOrder = await getOrder(orderId);
-        console.log(retrievedOrder);
         setOrder(retrievedOrder);
       }
 
