@@ -66,6 +66,7 @@ function PhotoVerification({
           handleChange={handleChange}
           required
           key={key}
+          accept="image/*"
         />
         {photo ? (
           <img alt="To upload" src={URL.createObjectURL(photo)} />
