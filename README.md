@@ -11,7 +11,7 @@ yarn or npm
 
 ### Build a new version
 
-You can configure runtime variables defined in .env:
+You can configure runtime variables defined in .env (.env for dev; .env.staging for staging; .env.production for production):
 
     REACT_APP_TERMS_AND_CONDITIONS_URL -> Terms and conditions URL
     REACT_APP_EXCHANGE_RATE_TERMS_URL -> Terms and conditions for exchange rate recalculation URL
@@ -22,7 +22,7 @@ You can configure runtime variables defined in .env:
 In order to build a new version of the app you should:
 
 1. npm install or yarn
-2. npm run build or yarn build
+2. npm run build or yarn build (build:staging for staging build:production for production)
 3. Compiled static assets are in /build folder and can be served by any web server(node, apache, nginx)
 
 ### Deployment
