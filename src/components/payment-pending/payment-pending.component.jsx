@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import "./payment-pending.styles.scss";
 import "../form.styles.scss";
 
-const PaymentPending = ({ paymentUrl }) => {
+const PaymentPending = ({ paymentUrl, bgnAmount }) => {
   const [, forceUpdate] = useReducer((x) => (x === 0 ? x + 1 : x - 1), 0);
 
   const intl = useIntl();
@@ -23,6 +23,14 @@ const PaymentPending = ({ paymentUrl }) => {
 
   return (
     <div className="form-container">
+      {bgnAmount ? (
+        <p>
+          {intl.formatMessage(
+            { id: "currentOrder.amount" },
+            { amount: bgnAmount }
+          )}
+        </p>
+      ) : null}
       <p>{intl.formatMessage({ id: "payment.thankYou" })}</p>
       <div className="buttons">
         <CustomButton onClick={payHere}>

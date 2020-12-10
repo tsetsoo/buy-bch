@@ -17,6 +17,14 @@ const FormContainer = (WrappedForm) =>
 
     return (
       <div className="form-container">
+        {props.bgnAmount ? (
+          <p>
+            {intl.formatMessage(
+              { id: "currentOrder.amount" },
+              { amount: props.bgnAmount }
+            )}
+          </p>
+        ) : null}
         <WrappedForm
           setErrorMessage={(errorId) => {
             errorId

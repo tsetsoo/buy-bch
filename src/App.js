@@ -26,12 +26,23 @@ function App() {
 
   const renderSwitch = () => {
     if (order["status"] === "pending_payment") {
-      return <PaymentPending paymentUrl={order["payment_url"]} />;
+      return (
+        <PaymentPending
+          paymentUrl={order["payment_url"]}
+          bgnAmount={order["bgn_amount"]}
+        />
+      );
     }
 
     if (order["status"] === "pending_id") {
       if (order["id_pending"] === "phone") {
-        return <PhoneVerification orderId={order["id"]} setOrder={setOrder} />;
+        return (
+          <PhoneVerification
+            orderId={order["id"]}
+            setOrder={setOrder}
+            bgnAmount={order["bgn_amount"]}
+          />
+        );
       } else if (
         order["id_pending"] === "id_photo" ||
         order["id_pending"] === "face_photo" ||
@@ -43,6 +54,7 @@ function App() {
             setOrder={setOrder}
             photoSuffix={order["id_pending"]}
             declarationFormUrl={order["id_ext_url"]}
+            bgnAmount={order["bgn_amount"]}
           />
         );
       }
