@@ -1,4 +1,4 @@
-Buy BCH for BGN Frontend Application
+# Buy BCH for BGN Frontend Application
 
 ## Prerequisets for local development
 
@@ -14,6 +14,7 @@ yarn or npm
 You can configure runtime variables defined in .env:
 
     REACT_APP_TERMS_AND_CONDITIONS_URL -> Terms and conditions URL
+    REACT_APP_EXCHANGE_RATE_TERMS_URL -> Terms and conditions for exchange rate recalculation URL
     REACT_APP_MAX_BGN_AMOUNT -> Maximum amount of BGN a customer can spend for BCH
     REACT_APP_MIN_BGN_AMOUNT -> Minumum amount of BGN a customer can spend for BCH
     REACT_APP_BACKEND_URL -> URL of backend buy-bch api
@@ -31,9 +32,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 A new version of the application can be deployed to Github Pages via:
 
-```shell
-yarn deploy
-```
+    ```shell
+    yarn deploy
+    ```
 
 ## Making a Progressive Web App
 

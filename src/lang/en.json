@@ -4,6 +4,7 @@
   "order.bgnAmount": "Amount of BGN you want to spend",
   "order.bchAmount": "Estimated amount of BCH you will receive",
   "order.termAndConditions": "I Accept <a>Terms and Conditions</a>",
+  "order.exchangeRateTerms": "I understand exchange rate is recalculated at <a>payment time</a>",
   "order.buyButton": "BUY BCH",
   "order.scanQr": "Scan QR Code",
   "qrScanner.back": "Go Back",

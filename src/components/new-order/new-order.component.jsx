@@ -66,6 +66,24 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
     return <QrScanner setBchState={setBchState} />;
   }
 
+  const checkbox = (name, textId, urlToRender) => {
+    return (
+      <div className="group">
+        <input type="checkbox" required name={name} />
+        <label>
+          {intl.formatMessage(
+            {
+              id: textId,
+            },
+            {
+              a: (url) => <a href={urlToRender}>{url}</a>,
+            }
+          )}
+        </label>
+      </div>
+    );
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -116,23 +134,16 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           label={intl.formatMessage({ id: "order.bchAmount" })}
           readOnly
         />
-        <div className="group">
-          <input type="checkbox" required name="termsConditions" />
-          <label>
-            {intl.formatMessage(
-              {
-                id: "order.termAndConditions",
-              },
-              {
-                a: (url) => (
-                  <a href={process.env.REACT_APP_TERMS_AND_CONDITIONS_URL}>
-                    {url}
-                  </a>
-                ),
-              }
-            )}
-          </label>
-        </div>
+        {checkbox(
+          "termsConditions",
+          "order.termAndConditions",
+          process.env.REACT_APP_TERMS_AND_CONDITIONS_URL
+        )}
+        {checkbox(
+          "exchangeRateTerms",
+          "order.exchangeRateTerms",
+          process.env.REACT_APP_EXCHANGE_RATE_TERMS_URL
+        )}
 
         <div className="buttons">
           <CustomButton type="submit">

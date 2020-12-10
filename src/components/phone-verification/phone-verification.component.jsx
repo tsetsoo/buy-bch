@@ -35,8 +35,8 @@ function PhoneVerification({ orderId, setOrder, setErrorMessage, setLoading }) {
         setOrder(response.order);
         localStorage.removeItem("phone");
       } else if (response.errorId) {
-        setLoading(false);
         setErrorMessage(response.errorId);
+        setLoading(false);
       }
     } else {
       const response = await verifyPhone(orderId, phone);
