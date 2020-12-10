@@ -68,7 +68,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
 
   const checkbox = (name, textId, urlToRender) => {
     return (
-      <div className="group">
+      <div className="group checkbox">
         <input type="checkbox" required name={name} />
         <label>
           {intl.formatMessage(
@@ -119,7 +119,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
         <FormInput
           name="bgn"
           type="number"
-          step={process.env.REACT_APP_BGN_STEP}
+          step="any"
           handleChange={handleChangeBgn}
           value={bgn}
           label={intl.formatMessage({ id: "order.bgnAmount" })}
