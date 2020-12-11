@@ -9,6 +9,8 @@ import { newOrder, getRate } from "../../api/buy-bch.api";
 
 import { useIntl } from "react-intl";
 
+import qrCode from "../../assets/qrCode.png";
+
 import "../form.styles.scss";
 import "./new-order.styles.scss";
 
@@ -102,18 +104,19 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           value={bchState.bchAddress}
           label={intl.formatMessage({ id: "order.bchAddress" })}
           required
+          containerClasses="qrCodeContainer"
           children={
-            <CustomButton
-              className="small-button"
+            <img
+              alt="Scan QR Code"
+              src={qrCode}
               onClick={(e) => {
                 e.preventDefault();
                 setBchState({ ...bchState, showQr: true });
               }}
-            >
-              {intl.formatMessage({ id: "order.scanQr" })}
-            </CustomButton>
+            ></img>
           }
         />
+
         <FormInput
           name="bgn"
           type="number"

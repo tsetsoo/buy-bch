@@ -7,9 +7,10 @@ const FormInput = ({
   label,
   shrink,
   children,
+  containerClasses,
   ...otherProps
 }) => (
-  <div className="group">
+  <div className={`${containerClasses ? containerClasses : ""} group`}>
     <input className="form-input" onChange={handleChange} {...otherProps} />
     {label ? (
       <label

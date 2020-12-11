@@ -8,6 +8,9 @@ $main-color: black;
 }
 
 .group {
+  position: relative;
+  margin: 40px 0;
+  height: 40px;
   .form-input {
     background: none;
     background-color: white;

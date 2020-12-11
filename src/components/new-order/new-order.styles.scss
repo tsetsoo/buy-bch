@@ -3,3 +3,29 @@
   margin-top: 0px;
   font-size: 20px;
 }
+
+.qrCodeContainer {
+  .form-input {
+    padding-right: 38px;
+
+    @media screen and (max-width: 800px) {
+      padding-right: 6vw;
+    }
+  }
+
+  img {
+    height: 30px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    top: -42px;
+    left: 92%;
+
+    @media screen and (max-width: 800px) {
+      left: 95%;
+    }
+  }
+}
