@@ -103,16 +103,16 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           label={intl.formatMessage({ id: "order.bchAddress" })}
           required
           children={
-            <div className="qr-button-container">
-              <button
-                className="custom-button qr-button"
+            <div className="small-button-container">
+              <CustomButton
+                className="small-button"
                 onClick={(e) => {
                   e.preventDefault();
                   setBchState({ ...bchState, showQr: true });
                 }}
               >
                 {intl.formatMessage({ id: "order.scanQr" })}
-              </button>
+              </CustomButton>
             </div>
           }
         />

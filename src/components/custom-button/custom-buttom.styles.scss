@@ -1,19 +1,9 @@
 @mixin base-button {
-  min-width: 165px;
-  width: auto;
-  height: 50px;
-  letter-spacing: 0.5px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
-  font-size: 20px;
-  background: rgb(236, 65, 21);
   border-color: white;
   color: #fff;
   font-family: "FuturaMedium", "Verdana", sans-serif;
   border: none;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
   border-radius: 36px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -29,16 +19,51 @@
   }
 }
 
+@mixin big-button {
+  min-width: 165px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .custom-button {
+  @include big-button();
   @include base-button();
+  background: rgb(236, 65, 21);
 }
 
 .custom-button-red {
+  @include big-button();
   @include base-button();
   background: red;
 }
 
 .custom-button-green {
+  @include big-button();
   @include base-button();
   background: green;
+}
+
+.small-button {
+  @include base-button();
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+  padding: 0 15px 0 15px;
+
+  height: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  background-color: grey;
+  letter-spacing: normal;
+}
+
+.small-button-container {
+  width: 100%;
 }
