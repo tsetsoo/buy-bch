@@ -9,6 +9,7 @@
   "order.buyButton": "Buy BCH",
   "order.scanQr": "Scan QR Code",
   "currentOrder.amount": "You are buying BCH for {amount} BGN.",
+  "currentOrder.reset": "Start Over",
   "qrScanner.back": "Go Back",
   "qrScanner.confirmationMessage": "Is this your BCH address?",
   "qrScanner.submit": "Yes",
