@@ -1,30 +1,43 @@
 .header-container {
-  height: 70px;
+  height: 60px;
   width: 100%;
+  margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  align-items: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  padding: 7px 30px;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background: white;
 
   @media screen and (max-width: 800px) {
-    height: 60px;
-    padding: 10px;
+    height: 50px;
     margin-bottom: 20px;
   }
 }
 
-.options-container {
-  width: 90%;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+.brand-logo {
+  margin-left: calc(100vw * (180 / 1920));
+  height: 45px;
+  margin-top: 6.5px;
 
   @media screen and (max-width: 800px) {
-    width: 80%;
+    height: 35px;
+    margin-left: 0;
   }
 }
 
-.option {
-  padding: 10px 15px;
+.language {
   cursor: pointer;
+  opacity: 0.5;
+  margin-right: calc(100vw * (180 / 1920));
+
+  @media screen and (max-width: 800px) {
+    margin-right: 0;
+  }
 }

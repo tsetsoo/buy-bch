@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {renderSwitch()}
+      <div className="contents">{renderSwitch()}</div>
     </div>
   );
 }
