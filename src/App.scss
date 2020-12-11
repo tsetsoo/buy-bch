@@ -1,14 +1,19 @@
 body {
   font-family: "FuturaBook", "Verdana", sans-serif;
-  padding: 20px 40px;
-  background-image: url(assets/poypeBackground.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  
+  .contents{
+    background-image: url(assets/poypeBackground.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 60px 40px;
+  }
 
   @media screen and (max-width: 800px) {
-    padding: 10px;
     background-image: none;
+    .contents{
+      padding: 60px 10px;
+    }
   }
 }
 
