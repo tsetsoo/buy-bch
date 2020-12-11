@@ -23,7 +23,7 @@ deploy_staging:
   - cp ${DEPLOY_KEYFILE_STAGE} ~/.ssh/id_rsa
   - chmod 500 ~/.ssh/id_rsa
   - cat ${SSH_KNOWN_HOSTS_FILE_STAGE} >> ~/.ssh/known_hosts
-  - rsync -rz --checksum --delete dist/ www-deploy@stage.buybch.poype.io:/var/www/stage.buybch
+  - rsync -rz --checksum --delete build/ www-deploy@stage.buybch.poype.io:/var/www/stage.buybch
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
 
@@ -36,7 +36,7 @@ deploy_production:
   - cp ${DEPLOY_KEYFILE_PRODUCTION} ~/.ssh/id_rsa
   - chmod 500 ~/.ssh/id_rsa
   - cat ${SSH_KNOWN_HOSTS_FILE_PRODUCTION} >> ~/.ssh/known_hosts
-  - rsync -rz --checksum --delete dist/ www-deploy@buybch.poype.io:/var/www/buybch
+  - rsync -rz --checksum --delete build/ www-deploy@buybch.poype.io:/var/www/buybch
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: never
