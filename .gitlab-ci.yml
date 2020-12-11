@@ -1,0 +1,43 @@
+image: node:lts-buster
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+  - if [ "$CI_COMMIT_BRANCH" = "master" ]; then CONFIG="production"; else CONFIG="staging"; fi
+  - npm install
+  - npm run build:$CONFIG
+  artifacts:
+    paths:
+    - build
+
+deploy_staging:
+  stage: deploy
+  script:
+  - apt --quiet update --yes
+  - apt --quiet install --yes rsync
+  - mkdir -p ~/.ssh
+  - cp ${DEPLOY_KEYFILE_STAGE} ~/.ssh/id_rsa
+  - chmod 500 ~/.ssh/id_rsa
+  - cat ${SSH_KNOWN_HOSTS_FILE_STAGE} >> ~/.ssh/known_hosts
+  - rsync -rz --checksum --delete dist/ www-deploy@stage.buybch.poype.io:/var/www/stage.buybch
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+deploy_production:
+  stage: deploy
+  script:
+  - apt --quiet update --yes
+  - apt --quiet install --yes openssh-client
+  - mkdir -p ~/.ssh
+  - cp ${DEPLOY_KEYFILE_PRODUCTION} ~/.ssh/id_rsa
+  - chmod 500 ~/.ssh/id_rsa
+  - cat ${SSH_KNOWN_HOSTS_FILE_PRODUCTION} >> ~/.ssh/known_hosts
+  - scp dist/bch_exchange_poype-$APP_VERSION-py3-none-any.whl "${DEPLOY_URL_PRODUCTION}:"
+  - ssh ${DEPLOY_URL_PRODUCTION} sudo -u www-deploy /usr/local/bin/deploy-app.sh ${DEPLOY_APP_NAME} bch_exchange_poype-$APP_VERSION-py3-none-any.whl
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: never
