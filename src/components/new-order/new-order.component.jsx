@@ -1,19 +1,25 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
+import QrScanner from "../qr-scanner/qr-scanner.component";
+import FormContainer from "../form-container/form-container.component";
+
 import { newOrder, getRate } from "../../api/buy-bch.api";
-import Spinner from "../spinner/spinner.component";
+
 import { useIntl } from "react-intl";
 
 import "../form.styles.scss";
+import "./new-order.styles.scss";
 
-function NewOrder({ setOrder }) {
+function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const [bgn, setBgn] = useState("");
   const [email, setEmail] = useState("");
-  const [bchAddress, setBchAddress] = useState("");
+  const [bchState, setBchState] = useState({
+    bchAddress: "",
+    showQr: false,
+  });
   const [bch, setBch] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const didMount = useRef(false);
 
@@ -34,13 +40,13 @@ function NewOrder({ setOrder }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const response = await newOrder(bgn, bchAddress, email);
+    const response = await newOrder(bgn, bchState.bchAddress, email);
     setLoading(false);
     if (response.order) {
       localStorage.setItem("orderId", response.order.id);
       setOrder(response.order);
     } else if (response.errorId) {
-      setErrorMessage(intl.formatMessage({ id: response.errorId }));
+      setErrorMessage(response.errorId);
     }
   };
 
@@ -49,19 +55,37 @@ function NewOrder({ setOrder }) {
   };
 
   const handleChangeBchAddress = (event) => {
-    setBchAddress(event.target.value);
+    setBchState({ ...bchState, bchAddress: event.target.value });
   };
 
   const handleChangeBgn = (event) => {
     setBgn(event.target.value);
   };
 
-  if (loading) {
-    return <Spinner />;
+  if (bchState.showQr) {
+    return <QrScanner setBchState={setBchState} />;
   }
 
+  const checkbox = (name, textId, urlToRender) => {
+    return (
+      <div className="group checkbox">
+        <input type="checkbox" required name={name} />
+        <label>
+          {intl.formatMessage(
+            {
+              id: textId,
+            },
+            {
+              a: (url) => <a href={urlToRender}>{url}</a>,
+            }
+          )}
+        </label>
+      </div>
+    );
+  };
+
   return (
-    <div className="new-order">
+    <div>
       <form onSubmit={handleSubmit}>
         <FormInput
           name="email"
@@ -75,14 +99,27 @@ function NewOrder({ setOrder }) {
           name="bchAddress"
           type="bchAddress"
           handleChange={handleChangeBchAddress}
-          value={bchAddress}
+          value={bchState.bchAddress}
           label={intl.formatMessage({ id: "order.bchAddress" })}
           required
+          children={
+            <div className="small-button-container">
+              <CustomButton
+                className="small-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setBchState({ ...bchState, showQr: true });
+                }}
+              >
+                {intl.formatMessage({ id: "order.scanQr" })}
+              </CustomButton>
+            </div>
+          }
         />
         <FormInput
           name="bgn"
           type="number"
-          step="0.001"
+          step="any"
           handleChange={handleChangeBgn}
           value={bgn}
           label={intl.formatMessage({ id: "order.bgnAmount" })}
@@ -97,23 +134,16 @@ function NewOrder({ setOrder }) {
           label={intl.formatMessage({ id: "order.bchAmount" })}
           readOnly
         />
-        <div className="group">
-          <input type="checkbox" required name="termsConditions" />
-          <label>
-            {intl.formatMessage(
-              {
-                id: "order.termAndConditions",
-              },
-              {
-                a: (url) => (
-                  <a href={process.env.REACT_APP_TERMS_AND_CONDITIONS_URL}>
-                    {url}
-                  </a>
-                ),
-              }
-            )}
-          </label>
-        </div>
+        {checkbox(
+          "termsConditions",
+          "order.termAndConditions",
+          process.env.REACT_APP_TERMS_AND_CONDITIONS_URL
+        )}
+        {checkbox(
+          "exchangeRateTerms",
+          "order.exchangeRateTerms",
+          process.env.REACT_APP_EXCHANGE_RATE_TERMS_URL
+        )}
 
         <div className="buttons">
           <CustomButton type="submit">
@@ -121,9 +151,8 @@ function NewOrder({ setOrder }) {
           </CustomButton>
         </div>
       </form>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </div>
   );
 }
 
-export default NewOrder;
+export default FormContainer(NewOrder);

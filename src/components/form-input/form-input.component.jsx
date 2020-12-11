@@ -2,7 +2,13 @@ import React from "react";
 
 import "./form-input.styles.scss";
 
-const FormInput = ({ handleChange, label, shrink, ...otherProps }) => (
+const FormInput = ({
+  handleChange,
+  label,
+  shrink,
+  children,
+  ...otherProps
+}) => (
   <div className="group">
     <input className="form-input" onChange={handleChange} {...otherProps} />
     {label ? (
@@ -14,6 +20,7 @@ const FormInput = ({ handleChange, label, shrink, ...otherProps }) => (
         {label}
       </label>
     ) : null}
+    {children}
   </div>
 );
 
