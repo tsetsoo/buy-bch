@@ -5,6 +5,7 @@ import FormInput from "../form-input/form-input.component";
 import FormContainer from "../form-container/form-container.component";
 
 import { verifyPhoto } from "../../api/buy-bch.api";
+import { secondaryButtonClick } from "../../util/util.js";
 
 import { useIntl } from "react-intl";
 
@@ -86,6 +87,17 @@ function PhotoVerification({
         <div className="buttons">
           <CustomButton type="submit">
             {intl.formatMessage({ id: "photo.upload" })}
+          </CustomButton>
+          <CustomButton
+            className="secondary-button"
+            onClick={(e) =>
+              secondaryButtonClick(
+                e,
+                intl.formatMessage({ id: "currentOrder.confirmation" })
+              )
+            }
+          >
+            {intl.formatMessage({ id: "currentOrder.reset" })}
           </CustomButton>
         </div>
       </form>

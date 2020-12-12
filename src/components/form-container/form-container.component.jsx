@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import CustomButton from "../custom-button/custom-button.component";
 import Spinner from "../spinner/spinner.component";
-import { resetOrder } from "../../util/util";
 
 import { useIntl } from "react-intl";
+
+import "./form-container.styles.scss";
 
 const FormContainer = (WrappedForm) =>
   function Wrapper({ children, ...props }) {
@@ -19,6 +19,14 @@ const FormContainer = (WrappedForm) =>
 
     return (
       <div className="form-container">
+        {props.bgnAmount ? (
+          <p className="current-order-text">
+            {intl.formatMessage(
+              { id: "currentOrder.amount" },
+              { amount: props.bgnAmount }
+            )}
+          </p>
+        ) : null}
         <WrappedForm
           setErrorMessage={(errorId) => {
             errorId
@@ -30,17 +38,6 @@ const FormContainer = (WrappedForm) =>
         >
           {children}
         </WrappedForm>
-        {props.bgnAmount ? (
-          <p>
-            {intl.formatMessage(
-              { id: "currentOrder.amount" },
-              { amount: props.bgnAmount }
-            )}
-            <CustomButton className="small-button" onClick={resetOrder}>
-              {intl.formatMessage({ id: "currentOrder.reset" })}
-            </CustomButton>
-          </p>
-        ) : null}
         {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
       </div>
     );

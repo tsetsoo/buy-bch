@@ -19,7 +19,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "predeploy": "yarn build",
+    "predeploy": "yarn build:staging",
     "deploy": "gh-pages -d build",
     "start": "HOST=0.0.0.0 HTTPS=true react-scripts start",
     "build": "react-scripts build",

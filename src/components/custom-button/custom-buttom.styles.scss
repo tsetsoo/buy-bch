@@ -13,10 +13,10 @@
   transition-delay: 0s, 0s, 0s, 0s;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  margin: 30px 5px;
+  margin: 30px 0px;
 
   &:hover {
-    color: black;
+    opacity: 0.6;
   }
 }
 
@@ -36,6 +36,17 @@
   @include big-button();
   @include base-button();
   background: rgb(236, 65, 21);
+}
+
+.secondary-button {
+  @include big-button();
+  @include base-button();
+  color: rgb(236, 65, 21);
+  background: white;
+  border-color: rgb(236, 65, 21);
+  border-width: 2px;
+  border-image: none;
+  border-style: solid;
 }
 
 .custom-button-red {

@@ -8,6 +8,8 @@ import { verifyPhone, verifyPhoneCode } from "../../api/buy-bch.api";
 
 import { useIntl } from "react-intl";
 
+import { secondaryButtonClick } from "../../util/util.js";
+
 import "../form.styles.scss";
 
 function PhoneVerification({ orderId, setOrder, setErrorMessage, setLoading }) {
@@ -81,6 +83,17 @@ function PhoneVerification({ orderId, setOrder, setErrorMessage, setLoading }) {
         <div className="buttons">
           <CustomButton type="submit">
             {intl.formatMessage({ id: "phone.submit" })}
+          </CustomButton>
+          <CustomButton
+            className="secondary-button"
+            onClick={(e) =>
+              secondaryButtonClick(
+                e,
+                intl.formatMessage({ id: "currentOrder.confirmation" })
+              )
+            }
+          >
+            {intl.formatMessage({ id: "currentOrder.reset" })}
           </CustomButton>
         </div>
       </form>

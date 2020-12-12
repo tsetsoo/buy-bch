@@ -20,21 +20,13 @@ const PaymentPending = ({ paymentUrl, bgnAmount }) => {
 
   return (
     <div className="form-container">
-      {bgnAmount ? (
-        <p>
-          {intl.formatMessage(
-            { id: "currentOrder.amount" },
-            { amount: bgnAmount }
-          )}
-        </p>
-      ) : null}
       <p>{intl.formatMessage({ id: "payment.thankYou" })}</p>
       <div className="buttons">
         <CustomButton onClick={payHere}>
-          {intl.formatMessage({ id: "payment.payHere" })}
+          {intl.formatMessage({ id: "payment.payHere" }, { amount: bgnAmount })}
         </CustomButton>
         {localStorage.getItem("new-order-button-visible") ? (
-          <CustomButton onClick={resetOrder}>
+          <CustomButton className="secondary-button" onClick={resetOrder}>
             {intl.formatMessage({ id: "payment.newOrder" })}
           </CustomButton>
         ) : null}

@@ -25,7 +25,10 @@ function QrScanner({ setBchState }) {
           <p>{intl.formatMessage({ id: "qrScanner.confirmationMessage" })}</p>
           <p>{bchAddress}</p>
           <div className="buttons">
-            <CustomButton color="green" onClick={setBchAddressAndReturn}>
+            <CustomButton
+              color="custom-button-green"
+              onClick={setBchAddressAndReturn}
+            >
               {intl.formatMessage({ id: "qrScanner.submit" })}
             </CustomButton>
             <CustomButton
@@ -47,7 +50,10 @@ function QrScanner({ setBchState }) {
             onScan={(data) => setBchAddress(data)}
             style={{ margin: "10px 0px" }}
           />
-          <CustomButton color="red" onClick={setBchAddressAndReturn}>
+          <CustomButton
+            color="custom-button-red"
+            onClick={setBchAddressAndReturn}
+          >
             {intl.formatMessage({ id: "qrScanner.back" })}
           </CustomButton>
         </div>
