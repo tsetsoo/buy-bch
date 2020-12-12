@@ -1,5 +1,4 @@
 {
-  "homepage": "http://tsetsoo.github.io/buy-bch",
   "name": "buy-bch",
   "version": "0.1.0",
   "proxy": "https://api-stage.buybch.poype.io",
