@@ -18,8 +18,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "predeploy": "yarn build:staging",
-    "deploy": "gh-pages -d build",
+    "predeploy:github": "PUBLIC_URL=https://tsetsoo.github.io/buy-bch yarn build:staging",
+    "deploy:github": "gh-pages -d build",
     "start": "HOST=0.0.0.0 HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.staging yarn build",
