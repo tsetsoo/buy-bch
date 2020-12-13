@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "https://tsetsoo.github.io/buy-bch/static/css/main.20c99f03.chunk.css",
-    "main.js": "https://tsetsoo.github.io/buy-bch/static/js/main.c708571c.chunk.js",
-    "main.js.map": "https://tsetsoo.github.io/buy-bch/static/js/main.c708571c.chunk.js.map",
-    "runtime-main.js": "https://tsetsoo.github.io/buy-bch/static/js/runtime-main.f626cf49.js",
-    "runtime-main.js.map": "https://tsetsoo.github.io/buy-bch/static/js/runtime-main.f626cf49.js.map",
-    "static/js/2.29e52fae.chunk.js": "https://tsetsoo.github.io/buy-bch/static/js/2.29e52fae.chunk.js",
-    "static/js/2.29e52fae.chunk.js.map": "https://tsetsoo.github.io/buy-bch/static/js/2.29e52fae.chunk.js.map",
-    "static/js/3.5fef5b04.chunk.js": "https://tsetsoo.github.io/buy-bch/static/js/3.5fef5b04.chunk.js",
-    "static/js/3.5fef5b04.chunk.js.map": "https://tsetsoo.github.io/buy-bch/static/js/3.5fef5b04.chunk.js.map",
+    "main.css": "https://tsetsoo.github.io/buy-bch/static/css/main.87be1745.chunk.css",
+    "main.js": "https://tsetsoo.github.io/buy-bch/static/js/main.f44a431b.chunk.js",
+    "main.js.map": "https://tsetsoo.github.io/buy-bch/static/js/main.f44a431b.chunk.js.map",
+    "runtime-main.js": "https://tsetsoo.github.io/buy-bch/static/js/runtime-main.19a0bb31.js",
+    "runtime-main.js.map": "https://tsetsoo.github.io/buy-bch/static/js/runtime-main.19a0bb31.js.map",
+    "static/js/2.fb4a986f.chunk.js": "https://tsetsoo.github.io/buy-bch/static/js/2.fb4a986f.chunk.js",
+    "static/js/2.fb4a986f.chunk.js.map": "https://tsetsoo.github.io/buy-bch/static/js/2.fb4a986f.chunk.js.map",
+    "static/js/3.a158b9c7.chunk.js": "https://tsetsoo.github.io/buy-bch/static/js/3.a158b9c7.chunk.js",
+    "static/js/3.a158b9c7.chunk.js.map": "https://tsetsoo.github.io/buy-bch/static/js/3.a158b9c7.chunk.js.map",
     "index.html": "https://tsetsoo.github.io/buy-bch/index.html",
-    "static/css/main.20c99f03.chunk.css.map": "https://tsetsoo.github.io/buy-bch/static/css/main.20c99f03.chunk.css.map",
-    "static/js/2.29e52fae.chunk.js.LICENSE.txt": "https://tsetsoo.github.io/buy-bch/static/js/2.29e52fae.chunk.js.LICENSE.txt",
+    "static/css/main.87be1745.chunk.css.map": "https://tsetsoo.github.io/buy-bch/static/css/main.87be1745.chunk.css.map",
+    "static/js/2.fb4a986f.chunk.js.LICENSE.txt": "https://tsetsoo.github.io/buy-bch/static/js/2.fb4a986f.chunk.js.LICENSE.txt",
     "static/media/App.scss": "https://tsetsoo.github.io/buy-bch/static/media/poypeBackground.bd72b6d7.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f626cf49.js",
-    "static/js/2.29e52fae.chunk.js",
-    "static/css/main.20c99f03.chunk.css",
-    "static/js/main.c708571c.chunk.js"
+    "static/js/runtime-main.19a0bb31.js",
+    "static/js/2.fb4a986f.chunk.js",
+    "static/css/main.87be1745.chunk.css",
+    "static/js/main.f44a431b.chunk.js"
   ]
 }
