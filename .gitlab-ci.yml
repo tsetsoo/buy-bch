@@ -39,4 +39,3 @@ deploy_production:
   - rsync -rz --checksum --delete build/ www-deploy@buybch.poype.io:/var/www/buybch
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
-      when: never
