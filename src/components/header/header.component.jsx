@@ -3,6 +3,8 @@ import React, { useContext, useState } from "react";
 import logo from "../../assets/assets_images_poype-logo-light.png";
 import { Context } from "../intl-wrapper/intl-wrapper.component";
 
+import { useIntl } from "react-intl";
+
 import "./header.styles.scss";
 
 const options = {
@@ -17,14 +19,14 @@ const Header = () => {
   const context = useContext(Context);
   const [currentLanguage, setCurrentLanguage] = useState(setInitialState());
 
+  const intl = useIntl();
+
   const toggleLanguage = () => {
-    if (currentLanguage.label === options["bg"].label) {
-      setCurrentLanguage(options["en"]);
-      context.selectLanguage(options["en"].value);
-    } else {
-      setCurrentLanguage(options["bg"]);
-      context.selectLanguage(options["bg"].value);
-    }
+    const language =
+      currentLanguage.label === options["bg"].label ? "en" : "bg";
+
+    setCurrentLanguage(options[language]);
+    context.selectLanguage(options[language].value);
   };
 
   return (
@@ -32,6 +34,9 @@ const Header = () => {
       <a href="https://www.poype.io/">
         <img alt="Poype Logo" className="brand-logo" src={logo} />
       </a>
+      <div className="powered-text">
+        {intl.formatMessage({ id: "header.heading" })}
+      </div>
       <div className="language" onClick={() => toggleLanguage()}>
         {currentLanguage.label}
       </div>
