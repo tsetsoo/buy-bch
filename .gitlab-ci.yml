@@ -31,7 +31,7 @@ deploy_production:
   stage: deploy
   script:
   - apt --quiet update --yes
-  - apt --quiet install --yes openssh-client
+  - apt --quiet install --yes rsync
   - mkdir -p ~/.ssh
   - cp ${DEPLOY_KEYFILE_PRODUCTION} ~/.ssh/id_rsa
   - chmod 500 ~/.ssh/id_rsa
@@ -39,4 +39,3 @@ deploy_production:
   - rsync -rz --checksum --delete build/ www-deploy@buybch.poype.io:/var/www/buybch
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
-      when: never
