@@ -3,6 +3,10 @@ import axios from "axios";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const getRate = async (bgnAmount) => {
+  if (!bgnAmount) {
+    return "";
+  }
+
   try {
     const response = await axios.get(
       `${backendUrl}/rate/bchbgn?amount_bgn=${bgnAmount}`
@@ -16,7 +20,7 @@ export const getRate = async (bgnAmount) => {
 export const getOrder = async (orderId) => {
   try {
     const response = await axios.get(`${backendUrl}/order/${orderId}`);
-    return response.data;
+    return { order: response.data };
   } catch (err) {
     return { errorId: "bchapi.error.general" };
   }
@@ -31,7 +35,10 @@ export const newOrder = async (bgnAmount, bchAddress, email) => {
     });
     return { order: response.data };
   } catch (err) {
-    return errorIdFromErrorForStatus(err, 503, "bchapi.error.notEnoughBch");
+    return errorIdFromErrorForStatus(err, {
+      503: "bchapi.error.notEnoughBch",
+      400: "bchapi.error.badRequest",
+    });
   }
 };
 
@@ -41,7 +48,7 @@ export const verifyPhone = async (orderId, phone) => {
       phone,
     });
   } catch (err) {
-    return errorIdFromErrorForStatus(err, 400, "bchapi.error.phoneNumber");
+    return errorIdFromErrorForStatus(err, { 400: "bchapi.error.phoneNumber" });
   }
 };
 
@@ -56,7 +63,9 @@ export const verifyPhoneCode = async (orderId, phone, secretCode) => {
     );
     return { order: response.data };
   } catch (err) {
-    return errorIdFromErrorForStatus(err, 403, "bchapi.error.validationCode");
+    return errorIdFromErrorForStatus(err, {
+      403: "bchapi.error.validationCode",
+    });
   }
 };
 
@@ -73,16 +82,20 @@ export const verifyPhoto = async (orderId, photo, photoUrl) => {
     );
     return { order: response.data };
   } catch (err) {
-    return errorIdFromErrorForStatus(err, 400, "bchapi.error.photoFormat");
+    return errorIdFromErrorForStatus(err, { 400: "bchapi.error.photoFormat" });
   }
 };
 
-const errorIdFromErrorForStatus = (err, statusCode, customErrorId) => {
+const errorIdFromErrorForStatus = (err, handledResponseCodes) => {
+  let errorMessage = "";
+  if (err.response.data) {
+    errorMessage = err.response.data.message;
+  }
   let errorId;
-  if (err.response && err.response.status === statusCode) {
-    errorId = customErrorId;
+  if (handledResponseCodes[err.response.status]) {
+    errorId = handledResponseCodes[err.response.status];
   } else {
     errorId = "bchapi.error.general";
   }
-  return { errorId };
+  return { errorId, errorMessage };
 };

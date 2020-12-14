@@ -28,9 +28,11 @@ const FormContainer = (WrappedForm) =>
           </p>
         ) : null}
         <WrappedForm
-          setErrorMessage={(errorId) => {
+          setErrorMessage={(errorId, errorMessage) => {
             errorId
-              ? setErrorMessage(intl.formatMessage({ id: errorId }))
+              ? setErrorMessage(
+                  intl.formatMessage({ id: errorId }, { errorMessage })
+                )
               : setErrorMessage("");
           }}
           setLoading={setLoading}
