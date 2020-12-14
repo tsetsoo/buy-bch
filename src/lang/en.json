@@ -32,8 +32,10 @@
   "payment.payHere": "Pay {amount} BGN",
   "payment.newOrder": "New Order",
   "bchapi.error.general": "Unexpected error. Please contact system administrator.",
-  "bchapi.error.notEnoughBch": "Insuffiecient BCH reserves in the service to fulfill the order. Please decrease the amount or try again later",
+  "bchapi.error.getRate": "Unable to retrieve BGN-BCH exchange rate. Please try again later.",
+  "bchapi.error.badRequest": "Incorrect data entered. Please check and try again. Error message is: {errorMessage}",
+  "bchapi.error.notEnoughBch": "Insufficient  BCH reserves in the service to fulfil the order. Please decrease the amount or try again later",
   "bchapi.error.phoneNumber": "Phone number is not formed correctly. Please follow the example: +359888123456",
-  "bchapi.error.validationCode": "Validation code is invalid. Please try again.",
-  "bchapi.error.photoFormat": "Photo is of wrong format. Please try again."
+  "bchapi.error.validationCode": "Validation code is invalid. Please check and try again.",
+  "bchapi.error.photoFormat": "Photo is of wrong format. Please check and try again."
 }

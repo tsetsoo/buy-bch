@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { getOrder } from "./api/buy-bch.api";
-
-import "./App.scss";
 import Header from "./components/header/header.component";
 import NewOrder from "./components/new-order/new-order.component";
 import PaymentPending from "./components/payment-pending/payment-pending.component";
 import PhoneVerification from "./components/phone-verification/phone-verification.component";
 import PhotoVerification from "./components/photo-verification/photo-verification.component";
+
+import { getOrder } from "./api/buy-bch.api";
+
+import "./App.scss";
 
 function App() {
   const [order, setOrder] = useState({});
@@ -16,8 +17,12 @@ function App() {
     const orderId = localStorage.getItem("orderId");
     if (orderId) {
       async function fetchOrder() {
-        const retrievedOrder = await getOrder(orderId);
-        setOrder(retrievedOrder);
+        const response = await getOrder(orderId);
+        if (response.order) {
+          setOrder(response.order);
+        } else {
+          localStorage.clear();
+        }
       }
 
       fetchOrder();
