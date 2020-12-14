@@ -104,7 +104,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           value={bchState.bchAddress}
           label={intl.formatMessage({ id: "order.bchAddress" })}
           required
-          containerClasses="qrCodeContainer"
+          containerClasses="qr-code-container"
           children={
             <img
               alt="Scan QR Code"

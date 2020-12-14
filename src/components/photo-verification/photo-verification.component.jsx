@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import FormContainer from "../form-container/form-container.component";
+import WebcamCapture from "../webcam/webcam.component";
 
 import { verifyPhoto } from "../../api/buy-bch.api";
 import { secondaryButtonClick } from "../../util/util.js";
+
+import webcam from "../../assets/webcam.png";
 
 import { useIntl } from "react-intl";
 
@@ -22,21 +25,26 @@ function PhotoVerification({
 }) {
   const [photo, setPhoto] = useState(null);
   const [key, setKey] = useState(0);
+  const [showWebcamComponent, setShowWebcamComponent] = useState(false);
 
   const intl = useIntl();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorMessage("");
-    setLoading(true);
-    const response = await verifyPhoto(orderId, photo, photoSuffix);
-    setLoading(false);
-    if (response.order) {
-      setPhoto(null);
-      setKey(key === 0 ? 1 + key : key - 1);
-      setOrder(response.order);
-    } else if (response.errorId) {
-      setErrorMessage(response.errorId);
+    if (!photo) {
+      setErrorMessage("photo.missing");
+    } else {
+      setErrorMessage("");
+      setLoading(true);
+      const response = await verifyPhoto(orderId, photo, photoSuffix);
+      setLoading(false);
+      if (response.order) {
+        setPhoto(null);
+        setKey(key === 0 ? 1 + key : key - 1);
+        setOrder(response.order);
+      } else if (response.errorId) {
+        setErrorMessage(response.errorId);
+      }
     }
   };
 
@@ -57,6 +65,17 @@ function PhotoVerification({
     }
   };
 
+  if (showWebcamComponent) {
+    return (
+      <WebcamCapture
+        setPhotoToReturn={(photo) => {
+          setPhoto(photo);
+          setShowWebcamComponent(false);
+        }}
+      ></WebcamCapture>
+    );
+  }
+
   return (
     <div>
       <p>{intl.formatMessage({ id: photoMessageId() })}</p>
@@ -65,13 +84,20 @@ function PhotoVerification({
           name="photo"
           type="file"
           handleChange={handleChange}
-          required
           key={key}
           accept="image/*"
+          containerClasses="webcam-photo-container"
+          children={
+            <img
+              alt="Use webcam"
+              src={webcam}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowWebcamComponent(true);
+              }}
+            ></img>
+          }
         />
-        {photo ? (
-          <img alt="To upload" src={URL.createObjectURL(photo)} />
-        ) : null}
         {declarationFormUrl ? (
           <p>
             {intl.formatMessage(
@@ -83,6 +109,9 @@ function PhotoVerification({
               }
             )}
           </p>
+        ) : null}
+        {photo ? (
+          <img alt="To upload" src={URL.createObjectURL(photo)} />
         ) : null}
         <div className="buttons">
           <CustomButton type="submit">

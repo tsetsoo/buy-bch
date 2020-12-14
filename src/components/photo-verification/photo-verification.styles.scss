@@ -2,3 +2,31 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.webcam-photo-container {
+  .form-input {
+    padding-right: 38px;
+  }
+
+  img {
+    height: 30px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    top: -42px;
+    left: 92%;
+    opacity: 0.5;
+
+    @media screen and (max-width: 800px) {
+      visibility: hidden;
+      clear: both;
+      float: left;
+      margin: 10px auto 5px 20px;
+      width: 28%;
+      display: none;
+    }
+  }
+}
