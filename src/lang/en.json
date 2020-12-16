@@ -18,13 +18,14 @@
   "phone.number": "Your mobile number (e.g. +359888123456)",
   "phone.smsCode": "SMS verification code",
   "phone.submit": "Submit",
-  "photo.typeId": "Upload a photo of your ID in a png or jpeg format.",
-  "photo.typeFace": "Upload a selfie of your face in a png or jpeg format.",
-  "photo.typeDeclaration": "Upload a scanned copy of the filled declaration form in a png or jpeg format.",
+  "photo.typeId": "Upload a photo of your ID in png or jpeg format.",
+  "photo.typeFace": "Upload a selfie showing your face in png or jpeg format.",
+  "photo.typeDeclaration": "Print out and fill the form and upload a scanned copy in png or jpeg format.",
   "photo.declarationUrl": "Download the declaration form <a>here</a>.",
   "photo.webcam": "Use webcam",
   "photo.upload": "Upload",
   "photo.missing": "No photo selected",
+  "webcam.takePhoto": "Take Photo",
   "webcam.back": "Go Back",
   "webcam.submit": "Use this photo",
   "webcam.scanAgain": "Try again",
@@ -37,5 +38,5 @@
   "bchapi.error.notEnoughBch": "Insufficient BCH amount to fulfill the order. Please decrease the amount or try again later.",
   "bchapi.error.phoneNumber": "Phone number is invalid. Use the following format: +359888123456.",
   "bchapi.error.validationCode": "Invalid validation code. Please try again.",
-  "bchapi.error.photoFormat": "The photo format is not supported. Upload photo in a png or jpeg format."
+  "bchapi.error.photoFormat": "The photo format is not supported. Upload photo in png or jpeg format."
 }
