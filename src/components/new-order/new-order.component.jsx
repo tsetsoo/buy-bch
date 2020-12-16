@@ -30,14 +30,18 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   useEffect(() => {
     if (didMount.current) {
       const timeOutId = setTimeout(async () => {
-        const bchAmount = await getRate(bgn);
-        setBch(bchAmount);
+        const response = await getRate(bgn);
+        if (response.errorId) {
+          setErrorMessage(response.errorId);
+        } else {
+          setBch(response);
+        }
       }, 1000);
       return () => clearTimeout(timeOutId);
     } else {
       didMount.current = true;
     }
-  }, [bgn]);
+  }, [bgn, setErrorMessage]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,7 +52,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
       localStorage.setItem("orderId", response.order.id);
       setOrder(response.order);
     } else if (response.errorId) {
-      setErrorMessage(response.errorId);
+      setErrorMessage(response.errorId, response.errorMessage);
     }
   };
 
@@ -99,7 +103,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
         />
         <FormInput
           name="bchAddress"
-          type="bchAddress"
+          type="text"
           handleChange={handleChangeBchAddress}
           value={bchState.bchAddress}
           label={intl.formatMessage({ id: "order.bchAddress" })}
