@@ -70,7 +70,9 @@ const WebcamCapture = ({ setPhotoToReturn }) => {
             className="webcam"
           />
           <div className="buttons">
-            <CustomButton onClick={capture}>Take Photo</CustomButton>
+            <CustomButton onClick={capture}>
+              {intl.formatMessage({ id: "webcam.takePhoto" })}
+            </CustomButton>
             <CustomButton
               className="secondary-button"
               onClick={() => setPhotoToReturn(null)}
