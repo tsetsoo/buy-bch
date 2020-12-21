@@ -51,13 +51,14 @@ function App() {
       } else if (
         order["id_pending"] === "id_photo" ||
         order["id_pending"] === "face_photo" ||
-        order["id_pending"] === "declaration_form"
+        order["id_pending"] === "declaration_form_1" ||
+        order["id_pending"] === "declaration_form_2"
       ) {
         return (
           <PhotoVerification
             orderId={order["id"]}
             setOrder={setOrder}
-            photoSuffix={order["id_pending"]}
+            photoId={order["id_pending"]}
             declarationFormUrl={order["id_ext_url"]}
             bgnAmount={order["bgn_amount"]}
           />
