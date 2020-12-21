@@ -17,6 +17,15 @@ export const getRate = async (bgnAmount) => {
   }
 };
 
+export const getLimits = async () => {
+  try {
+    const response = await axios.get(`${backendUrl}/limits`);
+    return response.data;
+  } catch (err) {
+    return { errorId: "bchapi.error.general" };
+  }
+};
+
 export const getOrder = async (orderId) => {
   try {
     const response = await axios.get(`${backendUrl}/order/${orderId}`);
