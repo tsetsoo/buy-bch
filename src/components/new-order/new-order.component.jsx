@@ -5,7 +5,7 @@ import FormInput from "../form-input/form-input.component";
 import QrScanner from "../qr-scanner/qr-scanner.component";
 import FormContainer from "../form-container/form-container.component";
 
-import { newOrder, getRate } from "../../api/buy-bch.api";
+import { newOrder, getRate, getLimits } from "../../api/buy-bch.api";
 
 import { useIntl } from "react-intl";
 
@@ -22,6 +22,8 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
     showQr: false,
   });
   const [bch, setBch] = useState("");
+  const [min, setMin] = useState(0.1);
+  const [max, setMax] = useState(9999);
 
   const didMount = useRef(false);
 
@@ -42,6 +44,17 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
       didMount.current = true;
     }
   }, [bgn, setErrorMessage]);
+
+  useEffect(() => {
+    const retrieveLimitsFromBackend = async () => {
+      const response = await getLimits();
+      if (!response.errorId) {
+        setMin(response["bgn_amount_min"]);
+        setMax(response["bgn_amount_max"]);
+      }
+    };
+    retrieveLimitsFromBackend();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -129,8 +142,8 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           value={bgn}
           label={intl.formatMessage({ id: "order.bgnAmount" })}
           required
-          max={process.env.REACT_APP_MAX_BGN_AMOUNT}
-          min={process.env.REACT_APP_MIN_BGN_AMOUNT}
+          max={max}
+          min={min}
         />
         <FormInput
           name="bch"
