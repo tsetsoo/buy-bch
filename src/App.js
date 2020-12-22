@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Header from "./components/header/header.component";
+import Footer from "./components/footer/footer.component";
 import NewOrder from "./components/new-order/new-order.component";
 import PaymentPending from "./components/payment-pending/payment-pending.component";
 import PhoneVerification from "./components/phone-verification/phone-verification.component";
@@ -71,6 +72,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="contents">{renderSwitch()}</div>
+      <Footer/>
     </div>
   );
 }
