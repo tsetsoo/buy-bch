@@ -7,9 +7,14 @@ import { useIntl } from "react-intl";
 
 import "./header.styles.scss";
 
+const labels = {
+  bg: "БГ",
+  en: "EN",
+};
+
 const options = {
-  bg: { value: "bg-BG", label: "БГ" },
-  en: { value: "en", label: "EN" },
+  bg: { value: "bg-BG", label: labels.bg },
+  en: { value: "en", label: labels.en },
 };
 
 const Header = () => {
@@ -25,8 +30,16 @@ const Header = () => {
     const language =
       currentLanguage.label === options["bg"].label ? "en" : "bg";
 
+    setLanguage(language);
+  };
+
+  const setLanguage = (language) => {
     setCurrentLanguage(options[language]);
     context.selectLanguage(options[language].value);
+  };
+
+  const getLanguageClasses = (language) => {
+    return currentLanguage.label === language ? "option active" : "option";
   };
 
   return (
@@ -37,8 +50,22 @@ const Header = () => {
       <div className="powered-text">
         {intl.formatMessage({ id: "header.heading" })}
       </div>
-      <div className="language" onClick={() => toggleLanguage()}>
+      <div className="language-phone" onClick={() => toggleLanguage()}>
         {currentLanguage.label}
+      </div>
+      <div className="language-desktop">
+        <div
+          className={getLanguageClasses(labels.en)}
+          onClick={() => setLanguage("en")}
+        >
+          {labels.en}
+        </div>
+        <div
+          className={getLanguageClasses(labels.bg)}
+          onClick={() => setLanguage("bg")}
+        >
+          {labels.bg}
+        </div>
       </div>
     </div>
   );
