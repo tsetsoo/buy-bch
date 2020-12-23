@@ -8,6 +8,7 @@
   "order.buyButton": "Купете",
   "order.scanQr": "Сканирайте QR кода",
   "header.heading": "BuyBCH powered by POYPE",
+  "footer.footer": "Предоставенo от <a></a> | Фирмен номер: {number} | Имейл: {email} | Телефон: {phone}",
   "currentOrder.amount": "Купувате BCH за {amount} лв.",
   "currentOrder.reset": "Отначало",
   "currentOrder.confirmation": "Сигурни ли сте, че искате да започнете отначало? Това ще стартира целият процес наново.",

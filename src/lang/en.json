@@ -8,6 +8,7 @@
   "order.buyButton": "Buy BCH",
   "order.scanQr": "Scan the QR Code",
   "header.heading": "BuyBCH powered by POYPE",
+  "footer.footer": "Provided by <a></a> | Company number: {number} | Email: {email} | Phone: {phone}",
   "currentOrder.amount": "You are buying BCH for BGN {amount}",
   "currentOrder.reset": "Start again",
   "currentOrder.confirmation": "Are you sure you would like to start again? This will reset the whole progress.",
