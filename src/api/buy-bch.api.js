@@ -35,12 +35,13 @@ export const getOrder = async (orderId) => {
   }
 };
 
-export const newOrder = async (bgnAmount, bchAddress, email) => {
+export const newOrder = async (bgnAmount, bchAddress, email, locale) => {
   try {
     const response = await axios.post(`${backendUrl}/order`, {
       bgn_amount: bgnAmount,
       bch_addr: bchAddress,
       email,
+      locale,
     });
     return { order: response.data };
   } catch (err) {

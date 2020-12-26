@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import QrScanner from "../qr-scanner/qr-scanner.component";
 import FormContainer from "../form-container/form-container.component";
+import { Context } from "../intl-wrapper/intl-wrapper.component";
 
 import { newOrder, getRate, getLimits } from "../../api/buy-bch.api";
 
@@ -24,6 +25,8 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const [bch, setBch] = useState("");
   const [min, setMin] = useState(0.1);
   const [max, setMax] = useState(9999);
+
+  const context = useContext(Context);
 
   const didMount = useRef(false);
 
@@ -59,7 +62,12 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const response = await newOrder(bgn, bchState.bchAddress, email);
+    const response = await newOrder(
+      bgn,
+      bchState.bchAddress,
+      email,
+      context.locale
+    );
     setLoading(false);
     if (response.order) {
       localStorage.setItem("orderId", response.order.id);

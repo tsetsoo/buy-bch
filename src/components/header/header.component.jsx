@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import logo from "../../assets/assets_images_poype-logo-light.png";
 import { Context } from "../intl-wrapper/intl-wrapper.component";
@@ -7,39 +7,26 @@ import { useIntl } from "react-intl";
 
 import "./header.styles.scss";
 
-const labels = {
+const languages = {
   bg: "БГ",
   en: "EN",
 };
 
-const options = {
-  bg: { value: "bg-BG", label: labels.bg },
-  en: { value: "en", label: labels.en },
-};
-
 const Header = () => {
-  const setInitialState = () => {
-    return /^bg\b/.test(context.locale) ? options["bg"] : options["en"];
-  };
   const context = useContext(Context);
-  const [currentLanguage, setCurrentLanguage] = useState(setInitialState());
-
   const intl = useIntl();
 
   const toggleLanguage = () => {
-    const language =
-      currentLanguage.label === options["bg"].label ? "en" : "bg";
-
+    const language = context.locale === "bg" ? "en" : "bg";
     setLanguage(language);
   };
 
   const setLanguage = (language) => {
-    setCurrentLanguage(options[language]);
-    context.selectLanguage(options[language].value);
+    context.selectLanguage(language);
   };
 
   const getLanguageClasses = (language) => {
-    return currentLanguage.label === language ? "option active" : "option";
+    return context.locale === language ? "option active" : "option";
   };
 
   return (
@@ -51,20 +38,20 @@ const Header = () => {
         {intl.formatMessage({ id: "header.heading" })}
       </div>
       <div className="language-phone" onClick={() => toggleLanguage()}>
-        {currentLanguage.label}
+        {languages[context.locale]}
       </div>
       <div className="language-desktop">
         <div
-          className={getLanguageClasses(labels.en)}
+          className={getLanguageClasses("en")}
           onClick={() => setLanguage("en")}
         >
-          {labels.en}
+          {languages.en}
         </div>
         <div
-          className={getLanguageClasses(labels.bg)}
+          className={getLanguageClasses("bg")}
           onClick={() => setLanguage("bg")}
         >
-          {labels.bg}
+          {languages.bg}
         </div>
       </div>
     </div>
