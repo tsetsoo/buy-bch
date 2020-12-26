@@ -13,7 +13,7 @@ const Footer = () => {
         {intl.formatMessage(
           { id: "footer.footer" },
           {
-            a: () => <a href={"https://www.poype.io/"}>{"POYPE LTD"}</a>,
+            a: () => <a href={"https://www.poype.io/"}>POYPE LTD</a>,
             number: "205728837",
             email: "office@poype.io",
             phone: "+359899837405",

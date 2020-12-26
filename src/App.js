@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -6,6 +6,7 @@ import NewOrder from "./components/new-order/new-order.component";
 import PaymentPending from "./components/payment-pending/payment-pending.component";
 import PhoneVerification from "./components/phone-verification/phone-verification.component";
 import PhotoVerification from "./components/photo-verification/photo-verification.component";
+import { Context } from "./components/intl-wrapper/intl-wrapper.component";
 
 import { getOrder } from "./api/buy-bch.api";
 
@@ -14,6 +15,8 @@ import "./App.scss";
 function App() {
   const [order, setOrder] = useState({});
 
+  const context = useRef(useContext(Context));
+
   useEffect(() => {
     const orderId = localStorage.getItem("orderId");
     if (orderId) {
@@ -21,6 +24,7 @@ function App() {
         const response = await getOrder(orderId);
         if (response.order) {
           setOrder(response.order);
+          context.current.selectLanguage(response.order.locale);
         } else {
           localStorage.clear();
         }
@@ -73,7 +77,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="contents">{renderSwitch()}</div>
-      <Footer />  
+      <Footer />
     </div>
   );
 }
