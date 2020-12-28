@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
+import FormDropdown from "../form-dropdown/form-dropdown.component";
 import QrScanner from "../qr-scanner/qr-scanner.component";
 import FormContainer from "../form-container/form-container.component";
 import { Context } from "../intl-wrapper/intl-wrapper.component";
@@ -15,6 +16,8 @@ import qrCode from "../../assets/qrCode.png";
 import "../form.styles.scss";
 import "./new-order.styles.scss";
 
+const paymentMethods = ["EasyPay"];
+
 function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const [bgn, setBgn] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +25,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
     bchAddress: "",
     showQr: false,
   });
+  const [paymentMethod, setPaymentMethodState] = useState("EasyPay");
   const [bch, setBch] = useState("");
   const [min, setMin] = useState(0.1);
   const [max, setMax] = useState(9999);
@@ -87,6 +91,10 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
 
   const handleChangeBgn = (event) => {
     setBgn(event.target.value);
+  };
+
+  const handleChangePaymentMethod = (value) => {
+    setPaymentMethodState(value);
   };
 
   if (bchState.showQr) {
@@ -159,6 +167,12 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           value={bch ? bch.toString() : ""}
           label={intl.formatMessage({ id: "order.bchAmount" })}
           readOnly
+        />
+        <FormDropdown
+          value={paymentMethod}
+          handleChange={handleChangePaymentMethod}
+          label={intl.formatMessage({ id: "order.paymentMethod" })}
+          dropdownValues={paymentMethods}
         />
         {checkbox(
           "termsConditions",
