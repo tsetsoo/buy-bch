@@ -4,6 +4,7 @@ import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 import QrScanner from "../qr-scanner/qr-scanner.component";
 import FormContainer from "../form-container/form-container.component";
+import FormDropdown from "../form-dropdown/form-dropdown.component";
 import { Context } from "../intl-wrapper/intl-wrapper.component";
 
 import { newOrder, getRate, getLimits } from "../../api/buy-bch.api";
@@ -16,6 +17,8 @@ import "../form.styles.scss";
 import "./new-order.styles.scss";
 
 function NewOrder({ setOrder, setErrorMessage, setLoading }) {
+  const paymentMethods = ["EasyPay"];
+
   const [bgn, setBgn] = useState("");
   const [email, setEmail] = useState("");
   const [bchState, setBchState] = useState({
@@ -25,6 +28,7 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
   const [bch, setBch] = useState("");
   const [min, setMin] = useState(0.1);
   const [max, setMax] = useState(9999);
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
   const context = useContext(Context);
 
@@ -159,6 +163,12 @@ function NewOrder({ setOrder, setErrorMessage, setLoading }) {
           value={bch ? bch.toString() : ""}
           label={intl.formatMessage({ id: "order.bchAmount" })}
           readOnly
+        />
+        <FormDropdown
+          value={paymentMethod}
+          handleChange={setPaymentMethod}
+          label={intl.formatMessage({ id: "order.paymentMethod" })}
+          dropdownValues={paymentMethods}
         />
         {checkbox(
           "termsConditions",

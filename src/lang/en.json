@@ -5,6 +5,7 @@
   "order.bchAmount": "Estimated amount of BCH you will receive",
   "order.termAndConditions": "I agree to the <a>Terms & Conditions and Privacy Policy</a>.",
   "order.exchangeRateTerms": "I understand the exchange rate is recalculated at <a>the time of payment</a>.",
+  "order.paymentMethod": "Payment method",
   "order.buyButton": "Buy BCH",
   "order.scanQr": "Scan the QR Code",
   "header.heading": "BuyBCH powered by POYPE",

@@ -5,6 +5,7 @@
   "order.bchAmount": "Сума в BCH, която ще получите",
   "order.termAndConditions": "Приемам <a>общите условия и политиката за защита на лични данни</a>",
   "order.exchangeRateTerms": "Разбирам, че обменният курс се преизчислява в <a>момента на плащането</a>.",
+  "order.paymentMethod": "Начин на плащане",
   "order.buyButton": "Купете",
   "order.scanQr": "Сканирайте QR кода",
   "header.heading": "BuyBCH powered by POYPE",
